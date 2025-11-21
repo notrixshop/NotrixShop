@@ -1,0 +1,217 @@
+// Notrix Shop React Single File
+// Updated: Tombol "Beli via WhatsApp" langsung menuju https://wa.me/6283178657700
+
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+
+// ---------------------------------------------
+// ⚡ BRANDING SETUP — NOTRIX SHOP
+// ---------------------------------------------
+const BRAND = {
+  name: "Notrix Shop",
+  wa: "https://wa.me/6283178657700",
+  colors: {
+    gradient1: "bg-gradient-to-r from-orange-500 to-yellow-400",
+    gradient2: "bg-gradient-to-r from-blue-500 to-purple-500",
+  },
+};
+
+// ---------------------------------------------
+// 🔥 Navbar
+// ---------------------------------------------
+export default function NotrixShop() {
+  const [dark, setDark] = useState(false);
+
+  return (
+    <div className={dark ? "dark" : ""}>
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+        <Navbar dark={dark} setDark={setDark} />
+        <Hero />
+        <Categories />
+        <FeaturedProducts />
+        <Testimonials />
+        <FAQ />
+        <Footer />
+      </div>
+    </div>
+  );
+}
+
+function Navbar({ dark, setDark }) {
+  return (
+    <nav className="flex justify-between items-center p-4 backdrop-blur bg-white/10 border-b border-white/20 sticky top-0 z-50">
+      <h1 className="text-2xl font-extrabold">{BRAND.name}</h1>
+      <button
+        onClick={() => setDark(!dark)}
+        className="px-3 py-1 rounded-xl bg-gray-200 dark:bg-gray-700"
+      >
+        {dark ? "☀️ Light" : "🌙 Dark"}
+      </button>
+    </nav>
+  );
+}
+
+// ---------------------------------------------
+// 🎯 Hero Section
+// ---------------------------------------------
+function Hero() {
+  return (
+    <section className="p-10 text-center">
+      <motion.h2
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-4xl font-extrabold"
+      >
+        {BRAND.name} — Tempat Jual Beli Akun Game Paling Trusted!
+      </motion.h2>
+
+      <p className="mt-3 text-gray-300 max-w-xl mx-auto">
+        Level Up Your Gameplay & Your Social Status.
+      </p>
+
+      <a
+        href="#katalog"
+        className="inline-block mt-6 px-6 py-3 rounded-xl text-white font-bold shadow-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:scale-105 transition"
+      >
+        Lihat Katalog
+      </a>
+    </section>
+  );
+}
+
+// ---------------------------------------------
+// 🕹️ Categories Section
+// ---------------------------------------------
+function Categories() {
+  const list = [
+    "Mobile Legends",
+    "Free Fire",
+    "Roblox",
+    "PES / eFootball",
+    "Instagram",
+    "TikTok",
+    "YouTube",
+  ];
+
+  return (
+    <section className="p-10">
+      <h3 className="text-3xl font-bold mb-4">Kategori</h3>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {list.map((cat) => (
+          <div
+            key={cat}
+            className="p-4 rounded-xl bg-white/10 backdrop-blur border border-white/20 hover:scale-105 transition cursor-pointer text-center"
+          >
+            {cat}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ---------------------------------------------
+// ⭐ Featured Products (Sample)
+// ---------------------------------------------
+function FeaturedProducts() {
+  const sampleProducts = [
+    { title: "Akun ML Epic - 50 Skin", price: "250.000" },
+    { title: "Akun FF Sultan", price: "300.000" },
+    { title: "Akun Roblox LVL 150", price: "150.000" },
+  ];
+
+  return (
+    <section id="katalog" className="p-10">
+      <h3 className="text-3xl font-bold mb-4">Produk Unggulan</h3>
+
+      <div className="grid md:grid-cols-3 gap-4">
+        {sampleProducts.map((p, i) => (
+          <ProductCard key={i} data={p} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ---------------------------------------------
+// 🛒 Product Card + WA Button Updated
+// ---------------------------------------------
+function ProductCard({ data }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      className="p-4 rounded-xl bg-white/10 backdrop-blur border border-white/20 shadow-lg hover:scale-105 transition"
+    >
+      <h4 className="text-xl font-bold mb-2">{data.title}</h4>
+      <p className="text-lg mb-4">Rp {data.price}</p>
+
+      {/* 🔥 Updated WhatsApp Button */}
+      <a
+        href={BRAND.wa}
+        target="_blank"
+        className="block w-full text-center bg-green-500 hover:bg-green-600 text-white py-2 rounded-xl font-bold"
+      >
+        Beli via WhatsApp
+      </a>
+    </motion.div>
+  );
+}
+
+// ---------------------------------------------
+// ⭐ Testimonials
+// ---------------------------------------------
+function Testimonials() {
+  return (
+    <section className="p-10">
+      <h3 className="text-3xl font-bold mb-4">Testimoni</h3>
+
+      <div className="grid md:grid-cols-3 gap-4">
+        <Testi text="Akun sesuai deskripsi, trusted parah!" />
+        <Testi text="Transaksi cepat, admin ramah." />
+        <Testi text="Harga murah tapi kualitas mantap." />
+      </div>
+    </section>
+  );
+}
+
+function Testi({ text }) {
+  return (
+    <div className="p-4 rounded-xl bg-white/10 backdrop-blur border border-white/20">
+      {text}
+    </div>
+  );
+}
+
+// ---------------------------------------------
+// ❓ FAQ
+// ---------------------------------------------
+function FAQ() {
+  return (
+    <section className="p-10">
+      <h3 className="text-3xl font-bold mb-4">FAQ</h3>
+      <ul className="space-y-4">
+        <li className="p-4 bg-white/10 rounded-xl backdrop-blur border border-white/20">
+          Apakah Notrix Shop aman?
+          <p className="text-gray-400">Aman 100%, semua transaksi bergaransi.</p>
+        </li>
+
+        <li className="p-4 bg-white/10 rounded-xl backdrop-blur border border-white/20">
+          Apakah akun yang dijual asli?
+          <p className="text-gray-400">Semua akun verified sebelum dijual.</p>
+        </li>
+      </ul>
+    </section>
+  );
+}
+
+// ---------------------------------------------
+// 🔻 Footer
+// ---------------------------------------------
+function Footer() {
+  return (
+    <footer className="p-6 text-center text-gray-400">
+      © 2025 {BRAND.name} — Jual Beli Akun Game & Sosial Media
+    </footer>
+  );
+}
